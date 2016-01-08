@@ -14,10 +14,10 @@ class e8_sets extends HandsOnSuite {
 
   exercise("Creating Set") {
     val mySet = Set("South", "East", "West", "North")
-    mySet.size should be(__)
+    mySet.size should be(4)
 
     val myOtherSet = Set("South", "East", "South", "North")
-    myOtherSet.size should be(__)
+    myOtherSet.size should be(3)
   }
 
   exercise("Operations on Sets") {
@@ -25,20 +25,20 @@ class e8_sets extends HandsOnSuite {
     val mySet = Set("South", "East", "South")
     val aNewSet = mySet + "North"
 
-    aNewSet.contains("North") should be(__)
+    aNewSet.contains("North") should be(true)
 
     // removal
     val mySetBis = Set("South", "East", "Oueast", "North")
     val aNewSetBis = mySetBis - "North"
     
     // testing if an element is present
-    aNewSetBis.contains("North") should be(__)
+    aNewSetBis.contains("North") should be(false)
 
     // multiple removals
     val myOtherSet = Set("South", "East", "West", "North")
     val aNewOtherSet = myOtherSet -- List("West", "North")
 
-    aNewOtherSet.contains("North") should be(__)
-    aNewOtherSet.contains("West") should be(__)
+    aNewOtherSet.contains("North") should be(false)
+    aNewOtherSet.contains("West") should be(false)
   }
 }

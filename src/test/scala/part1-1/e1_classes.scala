@@ -51,17 +51,17 @@ class e1_classes extends HandsOnSuite {
   */
   exercise("A getter is generated for a val parameter (field)") {
     val aClass = new ClassWithValParameter("name goes here")
-    aClass.name should be(__)
+    aClass.name should be("name goes here")
   }
 
   class ClassWithVarParameter(var description: String)
 
   exercise("A getter and a setter are generated for a var parameter (field)") {
     val aClass = new ClassWithVarParameter("description goes here")
-    aClass.description should be(__)
+    aClass.description should be("description goes here")
 
     aClass.description = "new description"
-    aClass.description should be(__)
+    aClass.description should be("new description")
   }
 
 
@@ -79,9 +79,9 @@ class e1_classes extends HandsOnSuite {
     val aClass = new ClassWithPrivateVarFields("name")
     // NOTE: aClass.name is not accessible from the outside
 
-    aClass.toString should be(__)
+    aClass.toString should be("name")
 
     aClass.changeName("newname")
-    aClass.toString should be(__)
+    aClass.toString should be("newname")
   }
 }

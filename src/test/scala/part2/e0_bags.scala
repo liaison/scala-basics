@@ -32,7 +32,7 @@ class e0_bags extends HandsOnSuite {
       * We already know about map, it simply applies the function to the content of
       * our Bag, without changing its structure.
       */
-    def map(function:Int => Int):Bag = ???
+    def map(function:Int => Int):Bag = new Bag(function(content))
 
     /**
       * flatmap is a slightly scarier beast. We pass if a function that returns a new
@@ -41,7 +41,7 @@ class e0_bags extends HandsOnSuite {
       *
       * Once again, just follow the types ...
       */
-    def flatMap(function:Int => Bag):Bag = ???
+    def flatMap(function:Int => Bag):Bag = function(content)
 
   }
 
@@ -67,7 +67,7 @@ class e0_bags extends HandsOnSuite {
     val myBiggerBag  = for (i <- myLittleBagOfZero) yield i + more
 
 
-    myBiggerBag.content should be(__)
+    myBiggerBag.content should be(12345)
 
   }
 

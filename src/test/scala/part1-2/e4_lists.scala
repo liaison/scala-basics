@@ -35,10 +35,10 @@ class e4_lists extends HandsOnSuite {
     val a: List[String] = Nil // Nil est la classe qui représente une liste vide
     val b: List[Int] = Nil // et oui en Scala tout est OBJET !
 
-    (a == Nil) should be(__)
-    (b == Nil) should be(__)
-    (a == b) should be(__)
-    (a eq b) should be(__)
+    (a == Nil) should be(true)
+    (b == Nil) should be(true)
+    (a == b) should be(true)
+    (a eq b) should be(true)
 
   }
 
@@ -46,7 +46,7 @@ class e4_lists extends HandsOnSuite {
     val a = List(1, 2, 3)
     val b = List(1, 2, 3)
 
-    (a eq b) should be(__)
+    (a eq b) should be(false)
   }
 
   /**
@@ -56,17 +56,17 @@ class e4_lists extends HandsOnSuite {
     val a = List(1, 3, 5, 7, 9)
 
     // Get element at index 2 in the list
-    a(2) should equal(__)
+    a(2) should equal(5)
 
-    a.head should equal(__)
+    a.head should equal(1)
 
-    a.tail should equal(__)
+    a.tail should equal(List(3, 5, 7, 9))
 
-    a.length should equal(__)
+    a.length should equal(5)
 
-    a.reverse should equal(__)
+    a.reverse should equal(List(9, 7, 5, 3, 1))
 
-    a.toString should equal(__)
+    a.toString should equal("List(1, 3, 5, 7, 9)")
 
     // map applies a function to each successive elements in a list
     // and returns a new list composed of the resulting elements
@@ -74,17 +74,17 @@ class e4_lists extends HandsOnSuite {
     // The notation "x => x + 1" reads as "the function that associates x + 1 to x"
     // This notation defines an anonymous function, also dubbed as "lambda"
     // The compiler will infer the type of the parameter (x in the example above) whenever possible
-    a.map(v => v * 3) should equal(__)
+    a.map(v => v * 3) should equal(List(3, 9, 15, 21, 27))
 
     // filter needs a function that takes an element of the list and returns a Boolean
-    a.filter(v => v % 3 == 0) should equal(__)
+    a.filter(v => v % 3 == 0) should equal(List(3, 9))
 
     val c = List(1, 2, 5, 8, 9)
     val b = c.filterNot(v => v % 5 == 0)
 
     c should equal(List(1, 2, 5, 8, 9)) // the original list is not modified, as usual
 
-    b should equal(__)
+    b should equal(List(1, 2, 8, 9))
   }
 
   /**
@@ -112,8 +112,8 @@ class e4_lists extends HandsOnSuite {
   exercise("Lambda's can be defined with a shorter syntax") {
     val a = List(1, 2, 3)
 
-    a.map(_ * 2) should equal(__)
+    a.map(_ * 2) should equal(List(2, 4, 6))
 
-    a.filter(_ % 2 != 0) should equal(__)
+    a.filter(_ % 2 != 0) should equal(List(1, 3))
   }
 }

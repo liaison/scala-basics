@@ -19,38 +19,39 @@ import support.HandsOnSuite
 
 class e6_option extends HandsOnSuite {
   exercise("None is equal to ...None") {
-   None should be(__)
+   None should be(None)
   }
 
   exercise("None is, well ... empty") {
-    None.isEmpty should be(__)
+    None.isEmpty should be(true)
   }
 
 
   exercise("None is 'real' object, we can call methods on it") {
     val optional: Option[String] = None
-    optional.isEmpty should be(__)
-    optional should be(__)
+    optional.isEmpty should be(true)
+    
+    optional should be(None)
   }
 
   exercise("Some everything but None") {
     val optional: Option[String] = Some("Some Value")
-    (optional == None) should be(__)
-    optional.isEmpty should be(__)
+    (optional == None) should be(false)
+    optional.isEmpty should be(false)
   }
 
   exercise("We can call getOrElse on an option to safely extract its content or fallback to a default value") {
     val optional: Option[String] = Some("Some Value")
     val optional2: Option[String] = None
-    optional.getOrElse("No Value") should be(__)
-    optional2.getOrElse("No Value") should be(__)
+    optional.getOrElse("No Value") should be("Some Value")
+    optional2.getOrElse("No Value") should be("No Value")
   }
 
   exercise("We can use map on an Option to safely transform its content") {
     def toUpper(s: String) = s.toUpperCase
 
-    None map toUpper should be(__)
-    Some("scala") map toUpper should be(__)
+    None map toUpper should be(None)
+    Some("scala") map toUpper should be(Some("SCALA"))
 
   }
 
@@ -65,7 +66,7 @@ class e6_option extends HandsOnSuite {
       int <- someInt
     } yield s"$str ${int * 2}" // this is string interpolation notice the s before the opening double-quote
 
-    interpolate1 should be(__)
+    interpolate1 should be(Some("scala 84"))
 
     val interpolate2 = for {
       str <- someString
@@ -73,7 +74,7 @@ class e6_option extends HandsOnSuite {
       int <- someInt
     } yield s"$str ${int * 2}"
 
-    interpolate2 should be(__)
+    interpolate2 should be(None)
   }
 
 }

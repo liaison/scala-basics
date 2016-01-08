@@ -67,14 +67,14 @@ class e5_functions_and_higher_order_functions extends HandsOnSuite {
     val lambda = (x: Int) => x + 1
     def result = List(1, 2, 3) map lambda
 
-    result should be(__)
+    result should be(List(2, 3, 4))
   }
 
   /**
     * We can also use the keyword 'def' inside a method's body to create a local function
     * */
   exercise("Local functions") {
-    def result = List(1, 2, 3) map (__)
+    def result = List(1, 2, 3) map (_+1)
 
     // Notice that when a function have no parameters, we don't need
     // parenthesis to call it
@@ -82,7 +82,7 @@ class e5_functions_and_higher_order_functions extends HandsOnSuite {
 
 
     def shorterSyntax = List(1, 2, 3) map ( _ * 2 )
-    shorterSyntax should be(__)
+    shorterSyntax should be(List(2, 4, 6))
   }
 
 
@@ -98,14 +98,14 @@ class e5_functions_and_higher_order_functions extends HandsOnSuite {
     }
 
     // remember, this is equivalent to addWithoutSyntaxSugar(1).apply(2)
-    addWithoutSyntaxSugar(1)(2) should be(__)
+    addWithoutSyntaxSugar(1)(2) should be(3)
 
     //ou plus simplement
     def add(x: Int) = (y: Int) => x + y
-    add(2)(3) should be(__)
+    add(2)(3) should be(5)
 
     def fiveAdder = add(5)
-    fiveAdder(42) should be(__)
+    fiveAdder(42) should be(47)
   }
 
   exercise("Functions taking functions as parameters") {
@@ -116,12 +116,12 @@ class e5_functions_and_higher_order_functions extends HandsOnSuite {
 
     def makeWhatEverYouLike(xs: List[String], transformation: String => String) = xs map transformation
 
-    makeWhatEverYouLike(List("ABC", "XYZ", "123"), ???) should be(List("abc", "xyz", "123"))
+    makeWhatEverYouLike(List("ABC", "XYZ", "123"), (_.toLowerCase)) should be(List("abc", "xyz", "123"))
 
     //using it inline
     List("Scala", "Erlang", "Clojure") map {
       _.length
-    } should be(__)
+    } should be(List(5, 6, 7))
   }
 
   /**
@@ -165,10 +165,12 @@ class e5_functions_and_higher_order_functions extends HandsOnSuite {
     */
   exercise("We can curry arbitrary functions") {
     def multiply(x: Int, y: Int) = x * y
+    
     val multiplyCurried = (multiply _).curried
+    //val multiplyCurried = multiply _ 
 
-    multiply(4, 5) should be(__)
-    multiplyCurried(4)(5) should be(__)
+    multiply(4, 5) should be(20)
+    multiplyCurried(4)(5) should be(20)
   }
 
 
@@ -178,10 +180,11 @@ class e5_functions_and_higher_order_functions extends HandsOnSuite {
     }
     def isEven(x: Int) = x % 2 == 0
     val xs = List(12, 11, 5, 20, 3, 13, 2)
-    customFilter(isEven)(xs) should be(__)
+    
+    customFilter(isEven)(xs) should be(List(12, 20, 2))
 
     val onlyEvenFilter = customFilter(isEven) _
 
-    onlyEvenFilter(xs) should be(__)
+    onlyEvenFilter(xs) should be(List(12, 20, 2))
   }
 }

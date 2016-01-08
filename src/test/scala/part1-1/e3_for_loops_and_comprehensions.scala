@@ -27,7 +27,7 @@ class e3_for_loops_and_comprehensions extends HandsOnSuite {
       sum += i
     }
 
-    sum should equal(__)
+    sum should equal(45)
   }
 
   exercise("We can add 'filters' in a for") {
@@ -39,7 +39,7 @@ class e3_for_loops_and_comprehensions extends HandsOnSuite {
       sum += i
     }
 
-    sum should equal(__)
+    sum should equal(20)
   }
 
 
@@ -74,10 +74,10 @@ class e3_for_loops_and_comprehensions extends HandsOnSuite {
       }
       yield i
 
-    aList should be(__)
+    aList should be(List(0, 2, 4, 6, 8))
 
     // List has a method sum that sums the elements values (only if it is a List of numeric type)
-    aList.sum should be(__)
+    aList.sum should be(20)
   }
 
   exercise("We can nest generators") {
@@ -89,7 +89,6 @@ class e3_for_loops_and_comprehensions extends HandsOnSuite {
       y <- yValues
     }
     yield (x, y) // this (x, y) creates a pair (2-tuple) with x and y
-    coordinates(4) should be(__)
+    coordinates(4) should be((3, 1))
   }
-
 }

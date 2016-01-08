@@ -11,11 +11,11 @@ class e1_bonus_stream extends HandsOnSuite {
     def flatMap[B](fonction:A => Stream[B]):Stream[B]
 
     def filter(fonction:A => Boolean):Stream[A]
-
+                    
     final def union[B >: A](stream: => Stream[B]):Stream[B]= {
       this match {
-        case cons:Cons[A] => Cons(cons.head, ???)
-        case EmptyStream => ???
+        case cons : Cons[A] => Cons(cons.head, cons.tail.union(stream))
+        case EmptyStream => stream
       }
     }
 
@@ -53,6 +53,7 @@ class e1_bonus_stream extends HandsOnSuite {
       }
     }
   }
+
   /**
    * Cons veut dire Constructor, c'est lui qui permet de construire la Stream en ajoutant un élément
    * à la queue
@@ -64,19 +65,23 @@ class e1_bonus_stream extends HandsOnSuite {
 
     // ce mécanisme permet de garantir la lazyness de la queue de la stream
     // ainsi que la mémoization des valeurs accédées
-    lazy val tail:Stream[A] = tl
+    lazy val tail : Stream[A] = tl
 
     def map[B](fonction:A => B):Stream[B] = new Cons(fonction(head), tail.map(fonction))
-
 
     /**
      * l'implémentation de flatMap a besoin d'union
      */
-    def flatMap[B](fonction:A => Stream[B]):Stream[B] = ???
+    def flatMap[B](fonction:A => Stream[B]):Stream[B] =
+        fonction(head).union(tail.flatMap(fonction))
 
-    override def filter(fonction:A => Boolean):Stream[A] = ???
+    override def filter(fonction:A => Boolean):Stream[A] =
+        if (fonction(head)) Cons(head, tail.filter(fonction)) else tail.filter(fonction)
 
-    override def equals(that:Any):Boolean = ???
+    override def equals(that:Any):Boolean = that match {
+        case thatCons : Cons[A] => if (head == thatCons.head) tail.equals(thatCons.tail) else false
+        case _ => false
+    }
 
     override def hashCode():Int = head.hashCode()
 
@@ -98,11 +103,11 @@ class e1_bonus_stream extends HandsOnSuite {
   case object EmptyStream extends Stream[Nothing] {
     type A = Nothing
 
-    def map[B](fonction:A => B):Stream[B]  = ???
+    def map[B](fonction:A => B):Stream[B]  = EmptyStream
 
-    def flatMap[B](fonction:A => Stream[B]):Stream[B] = ???
+    def flatMap[B](fonction:A => Stream[B]):Stream[B] = EmptyStream
 
-    def filter(fonction:A => Boolean):Stream[A] = ???
+    def filter(fonction:A => Boolean):Stream[A] = EmptyStream
 
     def isEmpty: Boolean = true
 

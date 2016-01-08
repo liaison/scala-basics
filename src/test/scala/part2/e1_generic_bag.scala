@@ -12,9 +12,9 @@ class e1_generic_bag  extends  HandsOnSuite {
 
   case class Bag[A](content:A) {
 
-    def map[B](function: A => B):Bag[B] = ???
+    def map[B](function: A => B):Bag[B] = new Bag[B](function(content))
 
-    def flatMap[B](function: A => Bag[B]):Bag[B] = ???
+    def flatMap[B](function: A => Bag[B]):Bag[B] = function(content)
 
   }
 
